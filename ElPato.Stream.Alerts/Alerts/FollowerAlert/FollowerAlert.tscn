@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://xcwcjk4juy3o"]
+
+[ext_resource type="Script" path="res://Alerts/FollowerAlert/FollowerAlert.gd" id="1_4w5cq"]
+[ext_resource type="Texture2D" uid="uid://b1hut3wx2vtxm" path="res://Alerts/Images/GreenWindow.png" id="1_tbp5b"]
+[ext_resource type="Texture2D" uid="uid://danwrl0rc52m7" path="res://Alerts/Images/RedWindow.png" id="2_c0q1w"]
+[ext_resource type="Texture2D" uid="uid://dmnmtkn576em2" path="res://Alerts/Images/FollowerText.png" id="2_xdwef"]
+[ext_resource type="Texture2D" uid="uid://bwviirfuisd2w" path="res://Alerts/Images/UIButtonsWindow.png" id="3_3soex"]
+[ext_resource type="Texture2D" uid="uid://bj5jh4j3wbayg" path="res://Alerts/Images/SubscriberText.png" id="3_n8eno"]
+[ext_resource type="AudioStream" uid="uid://bh35kkwawgldh" path="res://Alerts/SFX/341695__projectsu012__coins-1.wav" id="7_ndq8y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2c3v"]
+bg_color = Color(0.756863, 0.407843, 1, 1)
+
+[sub_resource type="Animation" id="Animation_nchxr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AlertContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ltpnv"]
+resource_name = "Show"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AlertContainer:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n4mrh"]
+_data = {
+"RESET": SubResource("Animation_nchxr"),
+"Show": SubResource("Animation_ltpnv")
+}
+
+[node name="FollowerAlert" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_4w5cq")
+
+[node name="AlertContainer" type="Node2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1, 1e-05)
+
+[node name="ScaledContainer" type="Node2D" parent="AlertContainer"]
+position = Vector2(-296, -253)
+scale = Vector2(3, 3)
+
+[node name="SubscriberWindow" type="Node2D" parent="AlertContainer/ScaledContainer"]
+
+[node name="RedWindow" type="Sprite2D" parent="AlertContainer/ScaledContainer/SubscriberWindow"]
+position = Vector2(105.333, 83.3333)
+texture = ExtResource("2_c0q1w")
+
+[node name="SubscriberText" type="Sprite2D" parent="AlertContainer/ScaledContainer/SubscriberWindow"]
+position = Vector2(78, 38.6667)
+texture = ExtResource("3_n8eno")
+
+[node name="FollowerWindow" type="Node2D" parent="AlertContainer/ScaledContainer"]
+
+[node name="GreenWindow" type="Sprite2D" parent="AlertContainer/ScaledContainer/FollowerWindow"]
+position = Vector2(105.333, 83.3333)
+texture = ExtResource("1_tbp5b")
+
+[node name="FollowerText" type="Sprite2D" parent="AlertContainer/ScaledContainer/FollowerWindow"]
+position = Vector2(73, 38.6667)
+texture = ExtResource("2_xdwef")
+
+[node name="UiButtonsWindow" type="Sprite2D" parent="AlertContainer/ScaledContainer"]
+position = Vector2(149.667, 38.6667)
+texture = ExtResource("3_3soex")
+
+[node name="Marker2D" type="Marker2D" parent="AlertContainer"]
+position = Vector2(-184, -92)
+
+[node name="Panel" type="Panel" parent="AlertContainer"]
+clip_children = 1
+offset_left = -201.0
+offset_top = -109.0
+offset_right = 225.0
+offset_bottom = 137.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2c3v")
+metadata/_edit_use_anchors_ = true
+
+[node name="SpawnContainer" type="Node2D" parent="AlertContainer/Panel"]
+clip_children = 1
+position = Vector2(11, 9)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n4mrh")
+}
+autoplay = "RESET"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ndq8y")
+volume_db = -10.173
+max_polyphony = 3

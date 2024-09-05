@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs3nlaunmdilf"]
+
+[ext_resource type="Script" path="res://UI/DeathCounter/DeathCounter.gd" id="1_3c2jr"]
+[ext_resource type="Texture2D" uid="uid://boc3077tdg752" path="res://UI/DeathCounter/Panel.png" id="2_0pxvp"]
+[ext_resource type="Texture2D" uid="uid://dpvb2374s0ryg" path="res://UI/DeathCounter/skull.png" id="3_htg2u"]
+
+[sub_resource type="SystemFont" id="SystemFont_kvcd3"]
+font_names = PackedStringArray("Pixellari")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_xuwws"]
+font = SubResource("SystemFont_kvcd3")
+font_size = 45
+outline_size = 9
+outline_color = Color(0.253906, 0.265625, 0.324219, 1)
+
+[node name="DeathCounter" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_3c2jr")
+
+[node name="ResizedContainer" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ResizedContainer"]
+offset_left = -105.0
+offset_top = 17.0
+offset_right = 40.0
+offset_bottom = 49.0
+texture = ExtResource("2_0pxvp")
+patch_margin_left = 20
+patch_margin_top = 12
+patch_margin_right = 28
+patch_margin_bottom = 14
+
+[node name="TextureRect" type="TextureRect" parent="ResizedContainer"]
+offset_left = 4.0
+offset_top = 24.0
+offset_right = 19.0
+offset_bottom = 39.0
+texture = ExtResource("3_htg2u")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="LabelContainer" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="LabelContainer"]
+offset_left = 65.0
+offset_top = 77.0
+offset_right = 90.0
+offset_bottom = 126.0
+text = "10"
+label_settings = SubResource("LabelSettings_xuwws")
+vertical_alignment = 1

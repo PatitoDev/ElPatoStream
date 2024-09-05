@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk1c2fvdypm3e"]
+
+[ext_resource type="Texture2D" uid="uid://bud0twtdl2fdg" path="res://Alerts/Images/YellowBox.png" id="1_3w2sd"]
+[ext_resource type="Texture2D" uid="uid://bnanabiug6qhq" path="res://Alerts/Images/AlertText.png" id="2_qttpw"]
+[ext_resource type="Texture2D" uid="uid://c3v64fimlbruy" path="res://Alerts/Images/RedBox.png" id="3_643og"]
+[ext_resource type="Texture2D" uid="uid://dlnyvy7piwgcc" path="res://Alerts/Images/warningText.png" id="4_toloy"]
+
+[sub_resource type="SystemFont" id="SystemFont_2h53t"]
+font_names = PackedStringArray("Pixellari")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4cln0"]
+font = SubResource("SystemFont_2h53t")
+font_color = Color(0.933594, 0.949219, 0.484375, 1)
+
+[node name="RaidAlert" type="Node2D"]
+texture_filter = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="YellowBox" type="Sprite2D" parent="Node2D"]
+position = Vector2(103, 112)
+texture = ExtResource("1_3w2sd")
+
+[node name="AlertText" type="Sprite2D" parent="Node2D"]
+position = Vector2(73, 103)
+texture = ExtResource("2_qttpw")
+
+[node name="RedBox" type="Sprite2D" parent="Node2D"]
+position = Vector2(217, 190)
+texture = ExtResource("3_643og")
+
+[node name="RedBox2" type="Sprite2D" parent="Node2D"]
+position = Vector2(362, 231)
+texture = ExtResource("3_643og")
+
+[node name="WarningText" type="Sprite2D" parent="Node2D"]
+position = Vector2(205.667, 177.667)
+texture = ExtResource("4_toloy")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 310.0
+offset_top = 213.0
+offset_right = 409.0
+offset_bottom = 232.0
+text = "01010010101"
+label_settings = SubResource("LabelSettings_4cln0")

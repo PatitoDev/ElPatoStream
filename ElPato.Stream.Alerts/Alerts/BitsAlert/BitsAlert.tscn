@@ -1,0 +1,173 @@
+[gd_scene load_steps=14 format=3 uid="uid://cras6kjkn3yu"]
+
+[ext_resource type="Script" path="res://Alerts/BitsAlert/BitsAlert.gd" id="1_p0esl"]
+[ext_resource type="Texture2D" uid="uid://bud0twtdl2fdg" path="res://Alerts/Images/YellowBox.png" id="1_vtipp"]
+[ext_resource type="Texture2D" uid="uid://b3y4n6p5m3dij" path="res://Alerts/Images/star.png" id="2_whe08"]
+[ext_resource type="AudioStream" uid="uid://dqik1a5ymp6ri" path="res://Alerts/BitsAlert/super-mario-world-coin.mp3" id="3_er51u"]
+[ext_resource type="AudioStream" uid="uid://cj026wd5ediow" path="res://Alerts/BitsAlert/super-mario-world-multiple-coins.mp3" id="4_od6l0"]
+
+[sub_resource type="SystemFont" id="SystemFont_go7la"]
+font_names = PackedStringArray("monogram")
+
+[sub_resource type="SystemFont" id="SystemFont_h84s3"]
+font_names = PackedStringArray("monogram")
+
+[sub_resource type="LabelSettings" id="LabelSettings_e52pb"]
+font = SubResource("SystemFont_h84s3")
+font_size = 32
+font_color = Color(0.253906, 0.265625, 0.324219, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1vojg"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 500, 0)
+scale_min = 3.0
+scale_max = 3.0
+
+[sub_resource type="Animation" id="Animation_qkflj"]
+resource_name = "Hide"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alert:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_4dpqu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alert:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_0woln"]
+resource_name = "Show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alert:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ssb6o"]
+_data = {
+"Hide": SubResource("Animation_qkflj"),
+"RESET": SubResource("Animation_4dpqu"),
+"Show": SubResource("Animation_0woln")
+}
+
+[node name="BitsAlert" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_p0esl")
+
+[node name="Alert" type="Node2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(1, 1e-05)
+
+[node name="ScaledUI" type="Node2D" parent="Alert"]
+scale = Vector2(3, 3)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Alert/ScaledUI"]
+offset_left = -42.0
+offset_top = -22.0
+offset_right = 45.0
+offset_bottom = 31.0
+texture = ExtResource("1_vtipp")
+patch_margin_left = 10
+patch_margin_top = 11
+patch_margin_right = 17
+patch_margin_bottom = 16
+metadata/_edit_use_anchors_ = true
+
+[node name="Star2" type="Sprite2D" parent="Alert/ScaledUI"]
+position = Vector2(21.6667, -7.66667)
+texture = ExtResource("2_whe08")
+
+[node name="Star" type="Sprite2D" parent="Alert/ScaledUI"]
+position = Vector2(-23.6667, -7.66667)
+texture = ExtResource("2_whe08")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Alert"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -46.0
+offset_right = 40.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.253906, 0.265625, 0.324219, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_go7la")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[rainbow freq=1.0 sat=0.8 val=0.8][center][wave amp=50.0 freq=5.0 connected=1]1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Alert"]
+offset_left = -115.0
+offset_top = 6.0
+offset_right = 105.0
+offset_bottom = 64.0
+text = "niv3k_el_pato"
+label_settings = SubResource("LabelSettings_e52pb")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ParticleContainer" type="Node2D" parent="Alert"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Alert/ParticleContainer"]
+position = Vector2(1, -61)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_1vojg")
+texture = ExtResource("2_whe08")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ssb6o")
+}
+
+[node name="SingleCoinSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_er51u")
+volume_db = 5.0
+
+[node name="MultiCoinSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_od6l0")
+volume_db = 5.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

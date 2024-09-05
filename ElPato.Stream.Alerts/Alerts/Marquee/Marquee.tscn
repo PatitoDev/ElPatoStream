@@ -1,0 +1,132 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdvuyifeakm5w"]
+
+[ext_resource type="Script" path="res://Alerts/Marquee/Marquee.gd" id="1_jh6s0"]
+[ext_resource type="Texture2D" uid="uid://d2p5vwcuoxwb4" path="res://Alerts/Images/WhiteBox.png" id="1_w2kko"]
+
+[sub_resource type="SystemFont" id="SystemFont_c8tpb"]
+font_names = PackedStringArray("monogram")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_mnlpy"]
+font = SubResource("SystemFont_c8tpb")
+font_size = 38
+font_color = Color(0.253906, 0.265625, 0.324219, 1)
+
+[sub_resource type="Animation" id="Animation_lueuf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(968, -112)]
+}
+
+[sub_resource type="Animation" id="Animation_hv2hj"]
+resource_name = "show"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(968, -112), Vector2(968, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fx5rp"]
+_data = {
+"RESET": SubResource("Animation_lueuf"),
+"show": SubResource("Animation_hv2hj")
+}
+
+[node name="Marquee" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_jh6s0")
+
+[node name="Container" type="Node2D" parent="."]
+position = Vector2(968, -112)
+scale = Vector2(1e-05, 1)
+
+[node name="ScaledContainer" type="Node2D" parent="Container"]
+position = Vector2(-0.285583, 0)
+scale = Vector2(3, 3)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Container/ScaledContainer"]
+offset_left = -110.0
+offset_top = -11.0
+offset_right = 106.0
+offset_bottom = 15.0
+texture = ExtResource("1_w2kko")
+region_rect = Rect2(2, 1, 116, 45)
+patch_margin_left = 14
+patch_margin_top = 12
+patch_margin_right = 13
+patch_margin_bottom = 12
+
+[node name="ColorRect" type="ColorRect" parent="Container"]
+clip_children = 1
+offset_left = -316.286
+offset_top = -21.0
+offset_right = 298.714
+offset_bottom = 18.0
+
+[node name="Label" type="Label" parent="Container/ColorRect"]
+custom_minimum_size = Vector2(202, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 613.0
+offset_bottom = 39.0
+label_settings = SubResource("LabelSettings_mnlpy")
+
+[node name="Label2" type="Label" parent="Container/ColorRect"]
+custom_minimum_size = Vector2(202, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 613.0
+offset_bottom = 39.0
+label_settings = SubResource("LabelSettings_mnlpy")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.001
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fx5rp")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

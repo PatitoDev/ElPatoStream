@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxtivu0gfocp3"]
+
+[ext_resource type="Script" path="res://Global/Settings/Settings.gd" id="1_qjwa5"]
+[ext_resource type="StyleBox" uid="uid://b30siweybu2o0" path="res://Global/Settings/buttoncontainer.tres" id="2_uc5oh"]
+[ext_resource type="PackedScene" uid="uid://blle2bl7qkekl" path="res://UI/Dropdown/dropdown.tscn" id="3_hrkux"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubrja"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.0745098, 0.0784314, 0.0784314, 0.792157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_pwjew"]
+font_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyccy"]
+content_margin_bottom = 3.0
+bg_color = Color(0.717647, 0.717647, 0.717647, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nffrj"]
+content_margin_bottom = 3.0
+bg_color = Color(0.423529, 0.423529, 0.423529, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj6r"]
+content_margin_bottom = 3.0
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.792157, 0, 0.541176, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Settings" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_qjwa5")
+
+[node name="LayoutContianer" type="PanelContainer" parent="."]
+clip_contents = true
+offset_left = 51.0
+offset_top = 41.0
+offset_right = 314.0
+offset_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ubrja")
+
+[node name="VFlex" type="VBoxContainer" parent="LayoutContianer"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HFlowContainer" type="HBoxContainer" parent="LayoutContianer/VFlex"]
+layout_mode = 2
+
+[node name="InputLable2" type="Label" parent="LayoutContianer/VFlex/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+label_settings = SubResource("LabelSettings_pwjew")
+
+[node name="CloseBtn" type="Button" parent="LayoutContianer/VFlex/HFlowContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+tooltip_text = "Close settings"
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_uc5oh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iyccy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nffrj")
+theme_override_styles/disabled = ExtResource("2_uc5oh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pwj6r")
+text = "x"
+icon_alignment = 1
+
+[node name="VideoSetting" parent="LayoutContianer/VFlex" instance=ExtResource("3_hrkux")]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Window"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "TikTok"
+popup/item_2/id = 2
+
+[connection signal="pressed" from="LayoutContianer/VFlex/HFlowContainer/CloseBtn" to="." method="_on_close_btn_pressed"]
+[connection signal="item_selected" from="LayoutContianer/VFlex/VideoSetting" to="." method="_on_option_button_2_item_selected"]

@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1gka4oe0w4xe"]
+
+[ext_resource type="Script" path="res://Alerts/AlertEmitter.gd" id="1_vvxbb"]
+
+[node name="AlertEmitter" type="Node2D"]
+script = ExtResource("1_vvxbb")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(892, 178)
+
+[node name="SpawnPoint2" type="Marker2D" parent="."]
+position = Vector2(691, 107)
+
+[node name="SpawnPoint3" type="Marker2D" parent="."]
+position = Vector2(1118, 119)
+
+[node name="SpawnPoint4" type="Marker2D" parent="."]
+position = Vector2(630, 277)
+
+[node name="SpawnPoint5" type="Marker2D" parent="."]
+position = Vector2(1113, 299)
+
+[node name="SpawnPoint15" type="Marker2D" parent="."]
+position = Vector2(1397, 285)
+
+[node name="SpawnPoint6" type="Marker2D" parent="."]
+position = Vector2(889, 385)
+
+[node name="SpawnPoint7" type="Marker2D" parent="."]
+position = Vector2(389, 76)
+
+[node name="SpawnPoint8" type="Marker2D" parent="."]
+position = Vector2(1365, 113)
+
+[node name="SpawnPoint11" type="Marker2D" parent="."]
+position = Vector2(415, 337)
+
+[node name="SpawnPoint9" type="Marker2D" parent="."]
+position = Vector2(576, 481)
+
+[node name="SpawnPoint10" type="Marker2D" parent="."]
+position = Vector2(1317, 472)
+
+[node name="SpawnPoint12" type="Marker2D" parent="."]
+position = Vector2(1633, 332)
+
+[node name="SpawnPoint13" type="Marker2D" parent="."]
+position = Vector2(160, 535)
+
+[node name="SpawnPoint14" type="Marker2D" parent="."]
+position = Vector2(114, 235)
+
+[node name="SpawnPoint16" type="Marker2D" parent="."]
+position = Vector2(1697, 543)
+
+[node name="SpawnPoint17" type="Marker2D" parent="."]
+position = Vector2(927, 311)
+
+[node name="SpawnPoint18" type="Marker2D" parent="."]
+position = Vector2(726, 240)
+
+[node name="SpawnPoint19" type="Marker2D" parent="."]
+position = Vector2(1153, 252)
+
+[node name="SpawnPoint20" type="Marker2D" parent="."]
+position = Vector2(665, 410)
+
+[node name="SpawnPoint21" type="Marker2D" parent="."]
+position = Vector2(1148, 432)
+
+[node name="SpawnPoint22" type="Marker2D" parent="."]
+position = Vector2(1432, 418)
+
+[node name="SpawnPoint23" type="Marker2D" parent="."]
+position = Vector2(924, 518)
+
+[node name="SpawnPoint24" type="Marker2D" parent="."]
+position = Vector2(424, 209)
+
+[node name="SpawnPoint25" type="Marker2D" parent="."]
+position = Vector2(1400, 246)
+
+[node name="SpawnPoint26" type="Marker2D" parent="."]
+position = Vector2(450, 470)
+
+[node name="SpawnPoint27" type="Marker2D" parent="."]
+position = Vector2(611, 614)
+
+[node name="SpawnPoint28" type="Marker2D" parent="."]
+position = Vector2(1352, 605)
+
+[node name="SpawnPoint29" type="Marker2D" parent="."]
+position = Vector2(1668, 465)
+
+[node name="SpawnPoint30" type="Marker2D" parent="."]
+position = Vector2(195, 668)
+
+[node name="SpawnPoint31" type="Marker2D" parent="."]
+position = Vector2(149, 368)
+
+[node name="SpawnPoint32" type="Marker2D" parent="."]
+position = Vector2(1732, 676)

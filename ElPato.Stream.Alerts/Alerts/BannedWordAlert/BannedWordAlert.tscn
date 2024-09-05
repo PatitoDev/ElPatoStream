@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://ctwbo1vjbydgy"]
+
+[ext_resource type="Script" path="res://Alerts/BannedWordAlert/BannedWordAlert.gd" id="1_kbfiq"]
+[ext_resource type="Texture2D" uid="uid://c3v64fimlbruy" path="res://Alerts/Images/RedBox.png" id="2_njmbj"]
+[ext_resource type="Texture2D" uid="uid://dlnyvy7piwgcc" path="res://Alerts/Images/warningText.png" id="3_77t2f"]
+[ext_resource type="Texture2D" uid="uid://blubkhh3bv4wm" path="res://Alerts/Images/closeBtn.png" id="4_01qjm"]
+[ext_resource type="AudioStream" uid="uid://d38i12601n71l" path="res://Alerts/SFX/win.wav" id="5_s7dwv"]
+
+[sub_resource type="SystemFont" id="SystemFont_6tyj8"]
+font_names = PackedStringArray("Pixellari")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rd6wu"]
+font = SubResource("SystemFont_6tyj8")
+
+[sub_resource type="SystemFont" id="SystemFont_yukis"]
+font_names = PackedStringArray("monogram")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iccie"]
+font = SubResource("SystemFont_yukis")
+font_size = 35
+
+[sub_resource type="Animation" id="Animation_kv5lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alert:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_snl1s"]
+resource_name = "show"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alert:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 9.6, 9.7, 9.8, 9.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_s7dwv")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o06ca"]
+_data = {
+"RESET": SubResource("Animation_kv5lf"),
+"show": SubResource("Animation_snl1s")
+}
+
+[node name="BannedWordAlert" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_kbfiq")
+
+[node name="Alert" type="Node2D" parent="."]
+position = Vector2(1621, 225)
+scale = Vector2(1, 1e-05)
+
+[node name="ScaledContainer" type="Node2D" parent="Alert"]
+position = Vector2(-9, -67)
+scale = Vector2(3, 3)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Alert/ScaledContainer"]
+offset_left = -54.0
+offset_top = -21.0
+offset_right = 62.0
+offset_bottom = 66.0
+texture = ExtResource("2_njmbj")
+region_rect = Rect2(2, 1, 116, 45)
+patch_margin_left = 48
+patch_margin_top = 17
+patch_margin_right = 45
+patch_margin_bottom = 19
+
+[node name="WarningText" type="Sprite2D" parent="Alert/ScaledContainer"]
+position = Vector2(-8, -10.5)
+texture = ExtResource("3_77t2f")
+
+[node name="CloseBtn" type="Sprite2D" parent="Alert/ScaledContainer"]
+position = Vector2(47, -10.5)
+texture = ExtResource("4_01qjm")
+
+[node name="UI" type="VBoxContainer" parent="Alert"]
+offset_left = -151.0
+offset_top = -69.0
+offset_right = 144.0
+offset_bottom = 108.0
+
+[node name="Label" type="Label" parent="Alert/UI"]
+layout_mode = 2
+text = "Prohibido escribir lo siguiente"
+label_settings = SubResource("LabelSettings_rd6wu")
+
+[node name="Label2" type="Label" parent="Alert/UI"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_iccie")
+horizontal_alignment = 1
+autowrap_mode = 1
+uppercase = true
+max_lines_visible = 3
+
+[node name="Label3" type="Label" parent="Alert/UI"]
+layout_mode = 2
+text = "Quien incluya este texto en algun mensaje
+recibira un timeout de 10 minutos"
+label_settings = SubResource("LabelSettings_rd6wu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o06ca")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -5.891

@@ -1,0 +1,33 @@
+[gd_scene load_steps=9 format=3 uid="uid://cysh16hq6cofp"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_sjgfi"]
+[ext_resource type="PackedScene" uid="uid://cs3nlaunmdilf" path="res://UI/DeathCounter/DeathCounter.tscn" id="2_g5njy"]
+[ext_resource type="PackedScene" uid="uid://c1gka4oe0w4xe" path="res://Alerts/AlertEmitter.tscn" id="3_3m76p"]
+[ext_resource type="PackedScene" uid="uid://xcwcjk4juy3o" path="res://Alerts/FollowerAlert/FollowerAlert.tscn" id="4_x0xy0"]
+[ext_resource type="PackedScene" uid="uid://bmocmlivoogw2" path="res://Alerts/Shoutout/Shoutout.tscn" id="5_5ycl6"]
+[ext_resource type="PackedScene" uid="uid://18ckjmkg587r" path="res://Alerts/VipAlert/VipAlert.tscn" id="7_nnmqu"]
+[ext_resource type="PackedScene" uid="uid://cdvuyifeakm5w" path="res://Alerts/Marquee/Marquee.tscn" id="9_yame7"]
+[ext_resource type="PackedScene" uid="uid://doq77wyee4gx6" path="res://Alerts/SubGiftAlert/SubGiftAlert.tscn" id="11_yr53j"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_sjgfi")
+
+[node name="DeathCounter" parent="." instance=ExtResource("2_g5njy")]
+
+[node name="AlertEmitter" parent="." instance=ExtResource("3_3m76p")]
+
+[node name="FollowerAlert" parent="." instance=ExtResource("4_x0xy0")]
+position = Vector2(284, 242)
+type = 1
+
+[node name="SubscriberAlert" parent="." instance=ExtResource("4_x0xy0")]
+position = Vector2(324, 371)
+
+[node name="Shoutout" parent="." instance=ExtResource("5_5ycl6")]
+position = Vector2(462, 270)
+
+[node name="VipAlert" parent="." instance=ExtResource("7_nnmqu")]
+
+[node name="Marquee" parent="." instance=ExtResource("9_yame7")]
+
+[node name="SubGiftAlert" parent="." instance=ExtResource("11_yr53j")]
