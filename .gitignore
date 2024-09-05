@@ -1,0 +1,10 @@
+# Godot 4+ specific ignores
+.godot/
+
+
+.vs/
+bin/
+obj/
+**/*.csproj.user
+**/*.pubxml.user
+appsettings.json

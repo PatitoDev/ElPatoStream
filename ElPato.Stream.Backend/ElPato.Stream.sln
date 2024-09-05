@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElPato.Stream.Api", "ElPato.Stream.Api\ElPato.Stream.Api.csproj", "{E66C79F9-5D41-447A-A4D6-860E0004D53B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElPato.Stream.TwitchApi", "ElPato.Stream.TwitchApi\ElPato.Stream.TwitchApi.csproj", "{4065754F-2939-4919-86F8-4E359B76DC22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{49EBEB87-E8AD-4CF3-81AD-8F68137EB802}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElPato.Stream.BusEvents", "ElPato.Stream.BusEvents\ElPato.Stream.BusEvents.csproj", "{088CE150-5ED9-4FEC-9D12-ABF2CA39A646}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E66C79F9-5D41-447A-A4D6-860E0004D53B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66C79F9-5D41-447A-A4D6-860E0004D53B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66C79F9-5D41-447A-A4D6-860E0004D53B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66C79F9-5D41-447A-A4D6-860E0004D53B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4065754F-2939-4919-86F8-4E359B76DC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4065754F-2939-4919-86F8-4E359B76DC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4065754F-2939-4919-86F8-4E359B76DC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4065754F-2939-4919-86F8-4E359B76DC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088CE150-5ED9-4FEC-9D12-ABF2CA39A646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088CE150-5ED9-4FEC-9D12-ABF2CA39A646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088CE150-5ED9-4FEC-9D12-ABF2CA39A646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088CE150-5ED9-4FEC-9D12-ABF2CA39A646}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6EF0C6D-EA2D-4329-98EB-5529B3CDD47D}
+	EndGlobalSection
+EndGlobal
