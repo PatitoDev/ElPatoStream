@@ -52,7 +52,6 @@ public class TwitchAuthenticationProvider: ITwitchAuthenticationProvider
             return;
         }
 
-        _logger.LogInformation("Refreshing token");
         var resp = await _twitchApi.RefreshToken(_tokenStore.RefreshToken);
         _tokenStore.RefreshToken = resp.RefreshToken;
         _tokenStore.Token = resp.AccessToken;
