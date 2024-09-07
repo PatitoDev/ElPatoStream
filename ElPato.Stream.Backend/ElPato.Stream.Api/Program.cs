@@ -21,7 +21,18 @@ builder.Services.AddSingleton(s =>
     var channelId = configuration.GetValue<string>("ChannelId")!;
 
     var redirect = $"http://localhost:{port}/Authenticate";
-    return new TwitchConfiguration(clientId, clientSecret, channelId, redirect);
+
+
+    var useDevelopmentWebsocketUrl = configuration.GetValue<bool>("UseDevelopmentWebsocketUrl")!;
+    var twitchWebsocketUrl = configuration.GetValue<string>("TwitchWebsocketUrl")!;
+
+    string? websocketDevelopmentUrl = null;
+    if (useDevelopmentWebsocketUrl)
+    {
+        websocketDevelopmentUrl = twitchWebsocketUrl;
+    }
+
+    return new TwitchConfiguration(clientId, clientSecret, channelId, redirect, websocketDevelopmentUrl);
 });
 
 builder.Services

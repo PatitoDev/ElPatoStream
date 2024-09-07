@@ -20,6 +20,11 @@ public partial class TwitchEventClient
     private ILogger<TwitchEventClient> _logger;
 
     public TwitchEventClient(ITwitchApiClient apiClient, TwitchConfiguration configuration, ILogger<TwitchEventClient> logger) {
+        if (!string.IsNullOrWhiteSpace(configuration.WebsocketDevelopmentUrl))
+        {
+            _uri = new(configuration.WebsocketDevelopmentUrl);
+        }
+
         _apiClient = apiClient;
         _configuration = configuration;
         _logger = logger;
