@@ -65,9 +65,9 @@ public partial class TwitchEventClient
                 );
                 return;
             case EventSubscriptions.ChannelSubscribe:
-                ReSubscribeEvent?.Invoke(this, 
-                    new TwitchEventArgs<ReSubscribeEvent> { 
-                        Payload = eventPayload.Deserialize<ReSubscribeEvent>(_jsonOptions)!
+                ChannelSubscribeEvent?.Invoke(this, 
+                    new TwitchEventArgs<ChannelSubscribeEvent> { 
+                        Payload = eventPayload.Deserialize<ChannelSubscribeEvent>(_jsonOptions)!
                     }
                 );
                 return;

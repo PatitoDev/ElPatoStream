@@ -20,7 +20,7 @@ func _ready() -> void:
 	match type:
 		AlertType.Subscriber:
 			$AlertContainer/ScaledContainer/FollowerWindow.visible = false;
-			#WS.OnNewSubscriber.connect(pushAlert);
+			WS.OnNewSubscriber.connect(pushAlert);
 			WS.OnSubMessage.connect(pushAlert);
 		AlertType.Follower:
 			WS.OnNewFollower.connect(pushAlert);
