@@ -27,9 +27,19 @@ public partial class TwitchEventClient
 
     private static async Task<string> ReceiveMsgAsync(ClientWebSocket ws, CancellationToken ct = default)
     {
+        using var ms = new MemoryStream();
         var buff = new ArraySegment<byte>(new byte[5024]);
-        var result = await ws.ReceiveAsync(buff, ct);
-        return Encoding.UTF8.GetString(buff.ToArray(), 0, result.Count);
+        WebSocketReceiveResult result;
+        do
+        {
+            result = await ws.ReceiveAsync(buff, ct);
+            ms.Write(buff.Array!, buff.Offset, result.Count);
+        }
+        while (!result.EndOfMessage);
+        ms.Seek(0, SeekOrigin.Begin);
+
+        using var reader = new StreamReader(ms, Encoding.UTF8);
+        return await reader.ReadToEndAsync(ct);
     }
 
     public void Connect()
