@@ -14,6 +14,10 @@ public static class EventSubscriptions
     public const string ChannelShoutout = "channel.shoutout.create";
     public const string ChannelChatMessage = "channel.chat.message";
 
+    public const string ChannelPredictionBegin = "channel.prediction.begin";
+    public const string ChannelPredictionEnd = "channel.prediction.end";
+    public const string ChannelPredictionProgress = "channel.prediction.progress";
+
 
     public static IEnumerable<EventSubscription> GetSubscriptionList(string ChannelId) =>
         new List<EventSubscription>() {
@@ -35,6 +39,12 @@ public static class EventSubscriptions
 
             new (ChannelShoutout, new() { { "broadcaster_user_id", ChannelId } , { "moderator_user_id", ChannelId } }),
 
-            new (ChannelChatMessage, new() { { "broadcaster_user_id", ChannelId }, { "user_id", ChannelId } })
+            new (ChannelChatMessage, new() { { "broadcaster_user_id", ChannelId }, { "user_id", ChannelId } }),
+
+            new (ChannelPredictionBegin, new() { { "broadcaster_user_id", ChannelId } }),
+
+            new (ChannelPredictionEnd, new() { { "broadcaster_user_id", ChannelId } }),
+
+            new (ChannelPredictionProgress, new() { { "broadcaster_user_id", ChannelId } }),
     };
 }

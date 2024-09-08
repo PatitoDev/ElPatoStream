@@ -31,9 +31,96 @@ public class TwitchEventHandler: ITwitchEventHandler
         eventClient.ReSubscribeEvent += EventClient_ReSubscribeEvent;
         eventClient.ChannelShoutoutEvent += EventClient_ChannelShoutoutEvent;
 
+        eventClient.ChannelPredictionEndEvent += EventClient_ChannelPredictionEndEvent;
+        eventClient.ChannelPredictionProgressEvent += EventClient_ChannelPredictionProgressEvent;
+        eventClient.ChannelPredictionBeginEvent += EventClient_ChannelPredictionBeginEvent;
+
         _apiClient = apiClient;
         _serverConnectionManager = serverConnectionManager;
         _customCommandResolver = customCommandResolver;
+    }
+
+    private async void EventClient_ChannelPredictionBeginEvent(object? sender, TwitchEventArgs<ChannelPredictionBeginEvent> e)
+    {
+        var busEvent = new PredictionBeginEvent()
+        {
+            Content = new()
+            {
+
+                Id = e.Payload.Id,
+                StartedAt = e.Payload.StartedAt,
+                Title = e.Payload.Title,
+                LocksAt = e.Payload.LocksAt,
+                Outcomes = e.Payload.Outcomes.Select(x => new PredictionBeginOutcome()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Color = (Bus.PredictionColor)x.Color
+                })
+            }
+        };
+        await _serverConnectionManager.Broadcast(busEvent);
+    }
+
+    private async void EventClient_ChannelPredictionProgressEvent(object? sender, TwitchEventArgs<ChannelPredictionProgressEvent> e)
+    {
+        var busEvent = new PredictionProgressEvent()
+        {
+            Content = new()
+            {
+                Id = e.Payload.Id,
+                StartedAt = e.Payload.StartedAt,
+                Title = e.Payload.Title,
+                LocksAt = e.Payload.LocksAt,
+                Outcomes = e.Payload.Outcomes.Select(x => new PredictionOutcome()
+                {
+                    Id = x.Id,
+                    ChannelPoints = x.ChannelPoints,
+                    Title = x.Title,
+                    Users = x.Users,
+                    TopPredictors = x.TopPredictors.Select(t => new PredictionUser()
+                    {
+                        ChannelPointsUsed = t.ChannelPointsUsed,
+                        ChannelPointsWon = t.ChannelPointsWon,
+                        UserId = t.UserId,
+                        UserLogin = t.UserLogin,
+                        UserName = t.UserName
+                    }),
+                    Color = (Bus.PredictionColor)x.Color
+                })
+            }
+        };
+        await _serverConnectionManager.Broadcast(busEvent);
+    }
+
+    private async void EventClient_ChannelPredictionEndEvent(object? sender, TwitchEventArgs<ChannelPredictionEndEvent> e)
+    {
+        var busEvent = new PredictionEndEvent()
+        {
+            Content = new() {
+                Id = e.Payload.Id,
+                EndedAt = e.Payload.EndedAt,
+                StartedAt = e.Payload.StartedAt,
+                Status = (Bus.PredictionStatus) e.Payload.Status,
+                Title = e.Payload.Title,
+                WinningOutcomeId = e.Payload.WinningOutcomeId,
+                Outcomes = e.Payload.Outcomes.Select(x => new PredictionOutcome() {
+                    Id = x.Id,
+                    ChannelPoints = x.ChannelPoints,
+                    Title = x.Title,
+                    Users = x.Users,
+                    TopPredictors = x.TopPredictors.Select(t => new PredictionUser() {
+                        ChannelPointsUsed = t.ChannelPointsUsed,
+                        ChannelPointsWon = t.ChannelPointsWon,
+                        UserId = t.UserId,
+                        UserLogin = t.UserLogin,
+                        UserName = t.UserName
+                    }),
+                    Color = (Bus.PredictionColor) x.Color
+                })
+            }
+        };
+        await _serverConnectionManager.Broadcast(busEvent);
     }
 
     private async void EventClient_ChannelShoutoutEvent(object? sender, TwitchEventArgs<ChannelShoutoutEvent> e)

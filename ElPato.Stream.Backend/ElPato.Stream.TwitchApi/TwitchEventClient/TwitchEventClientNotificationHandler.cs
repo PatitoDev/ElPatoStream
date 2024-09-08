@@ -18,7 +18,11 @@ public partial class TwitchEventClient
     public event EventHandler<TwitchEventArgs<ChannelSubscribeGiftEvent>>? GiftChannelSubscribeEvent;
     public event EventHandler<TwitchEventArgs<ChannelShoutoutEvent>>? ChannelShoutoutEvent;
 
-    private async Task HandleNotificationPayload(JsonNode payload, CancellationToken cancellationToken)
+    public event EventHandler<TwitchEventArgs<ChannelPredictionBeginEvent>>? ChannelPredictionBeginEvent;
+    public event EventHandler<TwitchEventArgs<ChannelPredictionProgressEvent>>? ChannelPredictionProgressEvent;
+    public event EventHandler<TwitchEventArgs<ChannelPredictionEndEvent>>? ChannelPredictionEndEvent;
+
+    private void HandleNotificationPayload(JsonNode payload, CancellationToken cancellationToken)
     {
         var metadata = payload["subscription"]!.Deserialize<TwitchSubscriptionEventMetadata>(_jsonOptions);
         var type = metadata!.Type;
@@ -96,6 +100,27 @@ public partial class TwitchEventClient
                 ChannelRaidEvent?.Invoke(this, 
                     new TwitchEventArgs<ChannelRaidEvent> { 
                         Payload = eventPayload.Deserialize<ChannelRaidEvent>(_jsonOptions)!
+                    }
+                );
+                return;
+            case EventSubscriptions.ChannelPredictionBegin:
+                ChannelPredictionBeginEvent?.Invoke(this, 
+                    new TwitchEventArgs<ChannelPredictionBeginEvent> { 
+                        Payload = eventPayload.Deserialize<ChannelPredictionBeginEvent>(_jsonOptions)!
+                    }
+                );
+                return;
+            case EventSubscriptions.ChannelPredictionProgress:
+                ChannelPredictionProgressEvent?.Invoke(this, 
+                    new TwitchEventArgs<ChannelPredictionProgressEvent> { 
+                        Payload = eventPayload.Deserialize<ChannelPredictionProgressEvent>(_jsonOptions)!
+                    }
+                );
+                return;
+            case EventSubscriptions.ChannelPredictionEnd:
+                ChannelPredictionEndEvent?.Invoke(this, 
+                    new TwitchEventArgs<ChannelPredictionEndEvent> { 
+                        Payload = eventPayload.Deserialize<ChannelPredictionEndEvent>(_jsonOptions)!
                     }
                 );
                 return;
