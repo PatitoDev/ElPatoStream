@@ -20,6 +20,7 @@ public partial class TwitchEventClient
 
     public event EventHandler<TwitchEventArgs<ChannelPredictionBeginEvent>>? ChannelPredictionBeginEvent;
     public event EventHandler<TwitchEventArgs<ChannelPredictionProgressEvent>>? ChannelPredictionProgressEvent;
+    public event EventHandler<TwitchEventArgs<ChannelPredictionLockEvent>>? ChannelPredictionLockEvent;
     public event EventHandler<TwitchEventArgs<ChannelPredictionEndEvent>>? ChannelPredictionEndEvent;
 
     private void HandleNotificationPayload(JsonNode payload, CancellationToken cancellationToken)
@@ -121,6 +122,13 @@ public partial class TwitchEventClient
                 ChannelPredictionEndEvent?.Invoke(this, 
                     new TwitchEventArgs<ChannelPredictionEndEvent> { 
                         Payload = eventPayload.Deserialize<ChannelPredictionEndEvent>(_jsonOptions)!
+                    }
+                );
+                return;
+            case EventSubscriptions.ChannelPredictionLock:
+                ChannelPredictionLockEvent?.Invoke(this, 
+                    new TwitchEventArgs<ChannelPredictionLockEvent> { 
+                        Payload = eventPayload.Deserialize<ChannelPredictionLockEvent>(_jsonOptions)!
                     }
                 );
                 return;

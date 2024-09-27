@@ -59,3 +59,17 @@ public record PredictionUser
     public required int? ChannelPointsWon { get; set; }
     public required int ChannelPointsUsed { get; set; }
 }
+
+public record PredictionLockEvent : BusEvent<PredictionLockEventContent>
+{
+    public PredictionLockEvent() : base("prediction-lock") { }
+}
+
+public record PredictionLockEventContent
+{
+    public required string Id { get; set; }
+    public required string Title { get; set; }
+    public required IEnumerable<PredictionOutcome> Outcomes { get; set; }
+    public required DateTime StartedAt { get; set; }
+    public required DateTime LockedAt { get; set; }
+}

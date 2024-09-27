@@ -34,10 +34,42 @@ public class TwitchEventHandler: ITwitchEventHandler
         eventClient.ChannelPredictionEndEvent += EventClient_ChannelPredictionEndEvent;
         eventClient.ChannelPredictionProgressEvent += EventClient_ChannelPredictionProgressEvent;
         eventClient.ChannelPredictionBeginEvent += EventClient_ChannelPredictionBeginEvent;
+        eventClient.ChannelPredictionLockEvent += EventClient_ChannelPredictionLockEvent;
 
         _apiClient = apiClient;
         _serverConnectionManager = serverConnectionManager;
         _customCommandResolver = customCommandResolver;
+    }
+
+    private async void EventClient_ChannelPredictionLockEvent(object? sender, TwitchEventArgs<ChannelPredictionLockEvent> e)
+    {
+        var busEvent = new PredictionLockEvent()
+        {
+            Content = new()
+            {
+                Id = e.Payload.Id,
+                StartedAt = e.Payload.StartedAt,
+                Title = e.Payload.Title,
+                LockedAt = e.Payload.LockedAt,
+                Outcomes = e.Payload.Outcomes.Select(x => new PredictionOutcome()
+                {
+                    Id = x.Id,
+                    ChannelPoints = x.ChannelPoints,
+                    Title = x.Title,
+                    Users = x.Users,
+                    TopPredictors = x.TopPredictors.Select(t => new PredictionUser()
+                    {
+                        ChannelPointsUsed = t.ChannelPointsUsed,
+                        ChannelPointsWon = t.ChannelPointsWon,
+                        UserId = t.UserId,
+                        UserLogin = t.UserLogin,
+                        UserName = t.UserName
+                    }),
+                    Color = (Bus.PredictionColor)x.Color
+                })
+            }
+        };
+        await _serverConnectionManager.Broadcast(busEvent);
     }
 
     private async void EventClient_ChannelPredictionBeginEvent(object? sender, TwitchEventArgs<ChannelPredictionBeginEvent> e)

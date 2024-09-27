@@ -49,3 +49,16 @@ func _on_close_btn_pressed() -> void:
 	self.visible = false;
 	updateMouseMode();
 	_saveSettings();
+
+
+func _on_video_setting_item_selected(index):
+	if index == 2:
+		# tik tok
+		DisplayServer.window_set_size(Vector2(1080, 1920) / 2);
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	elif index == 1:
+		DisplayServer.window_set_size(Vector2(1920, 1080));
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	elif index == 0:
+		DisplayServer.window_set_size(Vector2(1920, 1080));
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

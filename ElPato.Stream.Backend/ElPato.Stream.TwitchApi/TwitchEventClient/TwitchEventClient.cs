@@ -80,6 +80,10 @@ public partial class TwitchEventClient
                     }
                 }
             }
+
+            _logger.LogInformation("Connection to twitch lost. Reconnecting in 30s");
+            await Task.Delay(1000 * 30);
+            Connect();
         });
     }
 

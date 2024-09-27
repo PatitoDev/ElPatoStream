@@ -16,6 +16,11 @@ signal OnSubMessage;
 signal OnVipRedeem;
 signal OnSubGift;
 
+signal OnPredictionBegin;
+signal OnPredictionProgress;
+signal OnPredictionEnd;
+signal OnPredictionLock;
+
 # Commands
 signal OnDeathCounterReset;
 signal OnDeathCounterIncrease;
@@ -33,7 +38,11 @@ var messageDictionary = {
 	'reset-death-counter': OnDeathCounterReset,
 	'increase-death-counter': OnDeathCounterIncrease,
 	'vip-redeem-success': OnVipRedeem,
-	'sub-gift': OnSubGift
+	'sub-gift': OnSubGift,
+	'prediction-begin': OnPredictionBegin,
+	'prediction-progress': OnPredictionProgress,
+	'prediction-end': OnPredictionEnd,
+	'prediction-lock': OnPredictionLock
 }
 
 func _process(delta):
@@ -66,6 +75,7 @@ func onConnected():
 
 func onReceivedData(payload: PackedByteArray):
 	var message = payload.get_string_from_utf8()
+	print(message);
 	var data = JSON.parse_string(message);
 	if !data:
 		return;

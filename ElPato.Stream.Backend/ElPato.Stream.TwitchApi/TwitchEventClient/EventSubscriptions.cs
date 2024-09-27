@@ -17,6 +17,7 @@ public static class EventSubscriptions
     public const string ChannelPredictionBegin = "channel.prediction.begin";
     public const string ChannelPredictionEnd = "channel.prediction.end";
     public const string ChannelPredictionProgress = "channel.prediction.progress";
+    public const string ChannelPredictionLock = "channel.prediction.lock";
 
 
     public static IEnumerable<EventSubscription> GetSubscriptionList(string ChannelId) =>
@@ -44,6 +45,8 @@ public static class EventSubscriptions
             new (ChannelPredictionBegin, new() { { "broadcaster_user_id", ChannelId } }),
 
             new (ChannelPredictionEnd, new() { { "broadcaster_user_id", ChannelId } }),
+
+            new (ChannelPredictionLock, new() { { "broadcaster_user_id", ChannelId } }),
 
             new (ChannelPredictionProgress, new() { { "broadcaster_user_id", ChannelId } }),
     };

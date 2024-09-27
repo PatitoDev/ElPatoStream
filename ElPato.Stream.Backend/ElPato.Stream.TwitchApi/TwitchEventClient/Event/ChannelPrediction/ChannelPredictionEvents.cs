@@ -32,6 +32,19 @@ public record ChannelPredictionProgressEvent
     public required DateTime LocksAt { get; set; }
 }
 
+public record ChannelPredictionLockEvent
+{
+    public required string Id { get; set; }
+    public required string BroadcasterUserId { get; set; }
+    public required string BroadcasterUserName { get; set; }
+    public required string BroadcasterUserLogin { get; set; }
+    public required string Title { get; set; }
+    public required IEnumerable<ChannelPredictionOutcome> Outcomes { get; set; }
+    public required DateTime StartedAt { get; set; }
+    public required DateTime LockedAt { get; set; }
+}
+
+
 public enum PredictionColor
 {
     Blue,

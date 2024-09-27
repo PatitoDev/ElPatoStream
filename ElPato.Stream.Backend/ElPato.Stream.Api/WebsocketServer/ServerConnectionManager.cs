@@ -2,6 +2,7 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ElPato.Stream.Api.WebsocketServer;
 
@@ -57,6 +58,10 @@ public class ServerConnectionManager : IServerConnectionManager
         var data = JsonSerializer.Serialize(payload, new JsonSerializerOptions()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters =
+            {
+                new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+            }
         })!;
 
         await Broadcast(data, cancellationToken);
