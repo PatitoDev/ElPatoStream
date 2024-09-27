@@ -115,4 +115,4 @@ popup/item_2/text = "TikTok"
 popup/item_2/id = 2
 
 [connection signal="pressed" from="LayoutContianer/VFlex/HFlowContainer/CloseBtn" to="." method="_on_close_btn_pressed"]
-[connection signal="item_selected" from="LayoutContianer/VFlex/VideoSetting" to="." method="_on_option_button_2_item_selected"]
+[connection signal="item_selected" from="LayoutContianer/VFlex/VideoSetting" to="." method="_on_video_setting_item_selected"]

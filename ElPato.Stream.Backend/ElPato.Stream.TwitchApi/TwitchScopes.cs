@@ -3,19 +3,24 @@
 public static class TwitchScopes
 {
     public static readonly string[] Scopes = [
+        "bits:read",
+
         "user:write:chat",
         "user:read:chat",
+
         "chat:read",
         "chat:edit",
-        "channel:manage:redemptions",
-        "channel:manage:vips",
+
+        "moderator:read:followers",
         "moderator:manage:banned_users",
         "moderator:manage:announcements",
-        "moderator:read:followers",
+        "moderator:manage:shoutouts",
+
         "channel:read:subscriptions",
-        "bits:read",
         "channel:read:redemptions",
         "channel:manage:redemptions",
-        "moderator:manage:shoutouts",
+        "channel:manage:predictions",
+        "channel:manage:redemptions",
+        "channel:manage:vips",
     ];
 }

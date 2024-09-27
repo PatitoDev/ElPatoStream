@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://0cmptucqxisy"]
+
+[ext_resource type="Script" path="res://Alerts/PredictionAlert/PredictionAlert.gd" id="1_ndhty"]
+[ext_resource type="Texture2D" uid="uid://d2p5vwcuoxwb4" path="res://Alerts/Images/WhiteBox.png" id="2_gybfa"]
+[ext_resource type="FontFile" uid="uid://cvyynw1naq83g" path="res://Fonts/monogram.ttf" id="3_kvhol"]
+[ext_resource type="AudioStream" uid="uid://bh35kkwawgldh" path="res://Alerts/SFX/341695__projectsu012__coins-1.wav" id="4_6vbkt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lp7x4"]
+font = ExtResource("3_kvhol")
+font_size = 30
+font_color = Color(0.254902, 0.266667, 0.32549, 1)
+
+[sub_resource type="Animation" id="Animation_y2xsq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AlertContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1066, 250)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AlertContainer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ed7te"]
+resource_name = "Show"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AlertContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1066, 250), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AlertContainer:rotation")
+tracks/1/interp = 4
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.54462, 0.0]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_6vbkt")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h62es"]
+_data = {
+"RESET": SubResource("Animation_y2xsq"),
+"Show": SubResource("Animation_ed7te")
+}
+
+[node name="PredictionAlert" type="Node2D"]
+script = ExtResource("1_ndhty")
+metadata/_edit_vertical_guides_ = [15.0, 372.0, 18.0, 369.0]
+metadata/_edit_horizontal_guides_ = [57.0, 78.0]
+
+[node name="AlertContainer" type="Node2D" parent="."]
+position = Vector2(1066, 250)
+
+[node name="ResizedContainer" type="Node2D" parent="AlertContainer"]
+scale = Vector2(3, 3)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="AlertContainer/ResizedContainer"]
+texture_filter = 1
+offset_right = 133.0
+offset_bottom = 85.0
+texture = ExtResource("2_gybfa")
+region_rect = Rect2(3, 3, 116, 40)
+patch_margin_left = 18
+patch_margin_top = 14
+patch_margin_right = 21
+patch_margin_bottom = 16
+
+[node name="Title" type="Label" parent="AlertContainer"]
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 369.0
+offset_bottom = 42.0
+size_flags_vertical = 0
+text = "a"
+label_settings = SubResource("LabelSettings_lp7x4")
+autowrap_mode = 3
+
+[node name="OutcomeItemStartingPosition" type="Marker2D" parent="AlertContainer"]
+position = Vector2(18, 126)
+
+[node name="Outcomes" type="Node2D" parent="AlertContainer"]
+
+[node name="LineSeparator" type="ColorRect" parent="AlertContainer"]
+offset_left = 3.0
+offset_top = 80.0
+offset_right = 384.0
+offset_bottom = 83.0
+color = Color(0.254902, 0.266667, 0.32549, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_h62es")
+}
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"

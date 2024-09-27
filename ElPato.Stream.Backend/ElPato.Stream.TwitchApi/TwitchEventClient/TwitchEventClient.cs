@@ -3,6 +3,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace ElPato.Stream.TwitchApi;
 
@@ -11,7 +12,11 @@ public partial class TwitchEventClient
     private readonly Uri _uri = new("wss://eventsub.wss.twitch.tv/ws");
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+        Converters =
+        {
+            new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower),
+        }
     };
     private CancellationTokenSource? _cancellationTokenSource;
     private ClientWebSocket? _client;
@@ -75,6 +80,10 @@ public partial class TwitchEventClient
                     }
                 }
             }
+
+            _logger.LogInformation("Connection to twitch lost. Reconnecting in 30s");
+            await Task.Delay(1000 * 30);
+            Connect();
         });
     }
 
@@ -106,7 +115,7 @@ public partial class TwitchEventClient
             case "session_keepalive":
                 return;
             case "notification":
-                await HandleNotificationPayload(payload, cancellationToken);
+                HandleNotificationPayload(payload, cancellationToken);
                 break;
         }
     }
